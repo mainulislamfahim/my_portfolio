@@ -32,8 +32,8 @@
 </head>
 <body class="bg-black text-white min-h-screen scroll-smooth overflow-x-hidden">
     <!-- Navigation -->
-    <aside class="fixed top-0 left-0 right-0 z-50 hidden lg:flex items-center justify-center px-8 transition-all duration-500 py-6 bg-transparent">
-        <div class="w-full max-w-5xl rounded-full border border-purple-500/20 bg-black/70 backdrop-blur-2xl px-8 py-4 flex items-center justify-between shadow-2xl shadow-purple-500/10">
+    <aside id="desktop-nav" class="fixed top-0 left-0 right-0 z-50 hidden lg:flex items-center justify-center px-4 xl:px-8 pt-4 transition-transform duration-300 ease-out">
+        <div class="w-full max-w-[min(80rem,calc(100vw-2rem))] rounded-full border border-purple-500/20 bg-black/70 backdrop-blur-2xl px-8 py-4 flex items-center justify-between shadow-2xl shadow-purple-500/10">
             <div class="flex items-center gap-10">
                 <a href="#overview" class="text-sm uppercase tracking-[0.2em] text-gray-400 hover:text-purple-400 transition duration-300">Overview</a>
                 <a href="#skills" class="text-sm uppercase tracking-[0.2em] text-gray-400 hover:text-purple-400 transition duration-300">Skills</a>
@@ -46,7 +46,7 @@
     </aside>
 
     <!-- Mobile Navigation -->
-    <div class="lg:hidden fixed top-0 left-0 right-0 z-50 px-5 py-5 bg-transparent">
+    <div id="mobile-nav" class="lg:hidden fixed top-0 left-0 right-0 z-50 px-4 pt-4 transition-transform duration-300 ease-out">
         <div class="flex items-center justify-between rounded-full border border-white/10 bg-black/80 backdrop-blur-2xl px-5 py-4 shadow-2xl">
             <div>
                 <h2 class="font-black text-lg tracking-wide text-white">MAINUL</h2>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- Overview Section -->
-    <section id="overview" class="relative min-h-screen flex items-center px-6 lg:px-20 py-20">
+    <section id="overview" class="relative min-h-screen flex items-center px-6 lg:px-20 py-20 pt-32 lg:pt-36">
         <div class="absolute inset-0 bg-gradient-to-br from-cyan-950/20 via-black to-purple-950/20"></div>
         <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center w-full">
             <div>
@@ -559,6 +559,26 @@
         </div>
     </section>
     <script>
+        const desktopNav = document.getElementById('desktop-nav');
+        const mobileNav = document.getElementById('mobile-nav');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            const shouldHideNav = currentScrollY > lastScrollY && currentScrollY > 80;
+
+            [desktopNav, mobileNav].forEach((nav) => {
+                if (!nav) {
+                    return;
+                }
+
+                nav.classList.toggle('-translate-y-full', shouldHideNav);
+                nav.classList.toggle('translate-y-0', !shouldHideNav);
+            });
+
+            lastScrollY = currentScrollY;
+        }, { passive: true });
+
         const moreProjects = document.getElementById('more-projects');
         const toggleBtn = document.getElementById('toggle-projects');
         if (toggleBtn && moreProjects) {
