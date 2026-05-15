@@ -4,10 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Md. Mainul Islam - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        :root {
+            --bg-base: #06090f;
+            --bg-elevated: #0c1321;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --line-soft: rgba(148, 163, 184, 0.2);
+            --accent-a: #22d3ee;
+            --accent-b: #fb7185;
+            --accent-c: #f59e0b;
+        }
+        * {
+            box-sizing: border-box;
+        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            font-family: "Manrope", "Segoe UI", sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(1200px 500px at 8% -10%, rgba(34, 211, 238, 0.18), transparent 65%),
+                radial-gradient(1000px 440px at 90% 2%, rgba(251, 113, 133, 0.13), transparent 62%),
+                radial-gradient(700px 360px at 50% 120%, rgba(245, 158, 11, 0.09), transparent 65%),
+                linear-gradient(180deg, #06090f 0%, #05070d 35%, #080d19 100%);
+            min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: radial-gradient(circle at center, black, transparent 78%);
+            z-index: -1;
+        }
+        h1, h2, h3 {
+            font-family: "Sora", "Manrope", sans-serif;
+            letter-spacing: -0.02em;
         }
         .scroll-smooth {
             scroll-behavior: smooth;
@@ -24,15 +62,74 @@
         .animate-in {
             animation: fadeIn 0.3s ease-in-out;
         }
+        section div[class*="bg-white/5"][class*="border-white/10"] {
+            background: linear-gradient(160deg, rgba(15, 23, 42, 0.62), rgba(8, 12, 21, 0.82));
+            border-color: rgba(148, 163, 184, 0.22);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.24);
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
+        }
+        section div[class*="bg-white/5"][class*="border-white/10"]:hover {
+            transform: translateY(-6px);
+            border-color: rgba(34, 211, 238, 0.4);
+            box-shadow: 0 22px 48px rgba(8, 145, 178, 0.24);
+        }
+        #desktop-nav > div,
+        #mobile-nav > div {
+            border-color: rgba(56, 189, 248, 0.26);
+            box-shadow: 0 18px 40px rgba(8, 10, 20, 0.6);
+        }
+        .nav-scrolled > div {
+            background: rgba(2, 6, 23, 0.9);
+            border-color: rgba(56, 189, 248, 0.35);
+            box-shadow: 0 22px 56px rgba(8, 10, 20, 0.74);
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(24px) scale(0.985);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .accent-heading {
+            background-image: linear-gradient(90deg, var(--accent-a), var(--accent-b) 62%, var(--accent-c));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .float-orb {
+            animation: floatOrb 9s ease-in-out infinite;
+        }
+        .float-orb.delay {
+            animation-delay: 1.5s;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes floatOrb {
+            0% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, 18px, 0); }
+            100% { transform: translate3d(0, 0, 0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-on-scroll,
+            .float-orb {
+                transition: none;
+                animation: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-black text-white min-h-screen scroll-smooth overflow-x-hidden">
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div class="float-orb absolute -top-24 -left-20 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl"></div>
+        <div class="float-orb delay absolute top-28 -right-20 h-80 w-80 rounded-full bg-rose-400/20 blur-3xl"></div>
+        <div class="float-orb absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-amber-300/10 blur-3xl"></div>
+    </div>
     <!-- Navigation -->
-    <aside id="desktop-nav" class="fixed top-0 left-0 right-0 z-50 hidden lg:flex items-center justify-center px-4 xl:px-8 pt-4 transition-transform duration-300 ease-out">
+    <aside id="desktop-nav" class="fixed top-0 left-0 right-0 z-50 hidden lg:flex items-center justify-center px-4 xl:px-8 pt-4 translate-y-0 transition-transform duration-300 ease-out">
         <div class="w-full max-w-[min(80rem,calc(100vw-2rem))] rounded-full border border-purple-500/20 bg-black/70 backdrop-blur-2xl px-8 py-4 flex items-center justify-between shadow-2xl shadow-purple-500/10">
             <div class="flex items-center gap-10">
                 <a href="#overview" class="text-sm uppercase tracking-[0.2em] text-gray-400 hover:text-purple-400 transition duration-300">Overview</a>
@@ -46,16 +143,29 @@
     </aside>
 
     <!-- Mobile Navigation -->
-    <div id="mobile-nav" class="lg:hidden fixed top-0 left-0 right-0 z-50 px-4 pt-4 transition-transform duration-300 ease-out">
-        <div class="flex items-center justify-between rounded-full border border-white/10 bg-black/80 backdrop-blur-2xl px-5 py-4 shadow-2xl">
+    <div id="mobile-nav" class="lg:hidden fixed top-0 left-0 right-0 z-50 px-4 pt-4 translate-y-0 transition-transform duration-300 ease-out">
+        <div class="mx-auto w-full max-w-[min(42rem,calc(100vw-1.5rem))] flex items-center justify-between rounded-full border border-white/10 bg-black/80 backdrop-blur-2xl px-5 py-4 shadow-2xl">
             <div>
                 <h2 class="font-black text-lg tracking-wide text-white">MAINUL</h2>
             </div>
-            <button type="button" aria-label="Toggle navigation" class="flex flex-col gap-1.5">
+            <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-menu" class="flex flex-col gap-1.5 rounded-md p-1">
                 <span class="w-8 h-1 rounded-full bg-white block"></span>
                 <span class="w-8 h-1 rounded-full bg-white block"></span>
                 <span class="w-8 h-1 rounded-full bg-white block"></span>
             </button>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="lg:hidden fixed top-24 left-4 right-4 z-40 hidden">
+        <div class="mx-auto w-full max-w-[min(42rem,calc(100vw-1.5rem))] rounded-3xl border border-cyan-400/25 bg-slate-950/95 p-5 backdrop-blur-2xl shadow-[0_18px_45px_rgba(0,0,0,0.5)]">
+            <nav class="flex flex-col gap-3 text-sm uppercase tracking-[0.18em]">
+                <a href="#overview" class="mobile-nav-link rounded-xl px-3 py-3 text-gray-300 hover:bg-white/10 hover:text-cyan-300 transition">Overview</a>
+                <a href="#skills" class="mobile-nav-link rounded-xl px-3 py-3 text-gray-300 hover:bg-white/10 hover:text-cyan-300 transition">Skills</a>
+                <a href="#experience" class="mobile-nav-link rounded-xl px-3 py-3 text-gray-300 hover:bg-white/10 hover:text-cyan-300 transition">Work Journey</a>
+                <a href="#projects" class="mobile-nav-link rounded-xl px-3 py-3 text-gray-300 hover:bg-white/10 hover:text-cyan-300 transition">Projects</a>
+                <a href="#contact" class="mobile-nav-link rounded-xl px-3 py-3 text-gray-300 hover:bg-white/10 hover:text-cyan-300 transition">Contact</a>
+            </nav>
+            <a href="#contact" class="mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-cyan-500 to-rose-500 px-5 py-3 text-sm font-bold uppercase tracking-wide text-white">Contact Me</a>
         </div>
     </div>
 
@@ -69,7 +179,7 @@
                 </div>
                 <h1 class="text-5xl md:text-7xl font-black mt-8 leading-tight">
                     Md. Mainul
-                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
+                    <span class="accent-heading block">
                         Islam
                     </span>
                 </h1>
@@ -561,6 +671,9 @@
     <script>
         const desktopNav = document.getElementById('desktop-nav');
         const mobileNav = document.getElementById('mobile-nav');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
         let lastScrollY = window.scrollY;
 
         window.addEventListener('scroll', () => {
@@ -574,10 +687,114 @@
 
                 nav.classList.toggle('-translate-y-full', shouldHideNav);
                 nav.classList.toggle('translate-y-0', !shouldHideNav);
+                nav.classList.toggle('nav-scrolled', currentScrollY > 24);
             });
 
             lastScrollY = currentScrollY;
         }, { passive: true });
+
+        const closeMobileMenu = () => {
+            if (!mobileMenu || !mobileMenuBtn) {
+                return;
+            }
+            mobileMenu.classList.add('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('overflow-hidden');
+        };
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isOpen = !mobileMenu.classList.contains('hidden');
+                if (isOpen) {
+                    closeMobileMenu();
+                    return;
+                }
+
+                mobileMenu.classList.remove('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', 'true');
+                document.body.classList.add('overflow-hidden');
+            });
+        }
+
+        mobileNavLinks.forEach((link) => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                closeMobileMenu();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeMobileMenu();
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu || !mobileMenuBtn) {
+                return;
+            }
+            const clickedInsideMenu = mobileMenu.contains(event.target);
+            const clickedMenuBtn = mobileMenuBtn.contains(event.target);
+            if (!clickedInsideMenu && !clickedMenuBtn) {
+                closeMobileMenu();
+            }
+        });
+
+        const revealTargets = [
+            ...document.querySelectorAll('section'),
+            ...document.querySelectorAll('#skills .rounded-\\[30px\\]'),
+            ...document.querySelectorAll('#experience .rounded-\\[32px\\]'),
+            ...document.querySelectorAll('#projects .rounded-\\[32px\\]'),
+        ];
+
+        revealTargets.forEach((item) => item.classList.add('reveal-on-scroll'));
+
+        const overviewSection = document.getElementById('overview');
+        if (overviewSection) {
+            overviewSection.classList.add('revealed');
+        }
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -70px 0px',
+        });
+
+        revealTargets.forEach((item) => revealObserver.observe(item));
+
+        const interactiveCards = document.querySelectorAll('#projects .rounded-\\[32px\\]');
+        interactiveCards.forEach((card) => {
+            card.style.transformStyle = 'preserve-3d';
+
+            card.addEventListener('mousemove', (event) => {
+                if (window.innerWidth < 1024) {
+                    return;
+                }
+
+                const rect = card.getBoundingClientRect();
+                const x = (event.clientX - rect.left) / rect.width;
+                const y = (event.clientY - rect.top) / rect.height;
+                const rotateX = (0.5 - y) * 6;
+                const rotateY = (x - 0.5) * 8;
+
+                card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
 
         const moreProjects = document.getElementById('more-projects');
         const toggleBtn = document.getElementById('toggle-projects');
